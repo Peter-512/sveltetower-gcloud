@@ -6,8 +6,8 @@
 {#await data.promise.users}
 	<p>Loading users...</p>
 {:then users}
-	{#each users as {username}}
-		<p>{username}</p>
+	{#each users as {name}}
+		<p>{name}</p>
 	{/each}
 {:catch error}
 	<p>{error.message}</p>
