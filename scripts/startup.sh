@@ -11,8 +11,9 @@
 #--------------------------------Variables-------------------------------------
 db_server=$(gcloud sql instances describe db \
     --format="value(ipAddresses.ipAddress)")
-db_name="postgres"
-db_user="postgres" 
+db_name="infra_app"
+db_user="postgres"
+db_password="postgres"
 git_repo=https://gitlab.com/peter.buschenreiter/infra-app.git
 
 #--------------------------------Functions-------------------------------------
@@ -29,6 +30,7 @@ pull_from_vcs() {
     git clone ${git_repo}
     cd /infra-app
     populate_db
+    create_env
     npm install
     npm run build
     npm run dev -- --host
@@ -39,14 +41,14 @@ populate_db() {
     psql -h ${db_server} -d ${db_name} -U ${db_user} -f /infra-app/sql/insert.sql
 }
 
-# Access the database
-connect_db() {
-    psql -h ${db_server} -d ${db_name} -U ${db_user}
+create_env() {
+    echo "POSTGRES_PASSWORD=${db_password}" > /infra-app/.env
+    echo "DATABASE=${db_name}" >> /infra-app/.env
+    echo "POSTGRES_USER=${db_user}" >> /infra-app/.env
+    echo "SQL_INSTANCE_IP=${db_server}" >> /infra-app/.env
 }
 
 #--------------------------------Main------------------------------------------
 install_dependencies
 pull_from_vcs
-connect_db
-
 #--------------------------------End-------------------------------------------
