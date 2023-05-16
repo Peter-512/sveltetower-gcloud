@@ -9,8 +9,7 @@ async function getUsers() {
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const users = await getUsers()
 	return {
-		users
+		promise: {users: getUsers()}
 	};
 }
