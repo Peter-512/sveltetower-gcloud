@@ -21,7 +21,7 @@ git_repo=https://gitlab.com/peter.buschenreiter/infra-app.git
 install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
-        apt-get install -y apache2 postgresql-client git curl nodejs && \
+        apt-get install -y postgresql-client git curl nodejs && \
         rm -rf /var/lib/apt/lists/* 
 }
 
@@ -33,7 +33,7 @@ pull_from_vcs() {
     create_env
     npm install
     npm run build
-    npm run dev -- --host
+    npm run preview -- --host
 }
 
 populate_db() {
