@@ -2,8 +2,8 @@ import sql from "$lib/db.js";
 
 async function getUsers() {
 	return sql`
-        select username
-        from platform_users`;
+        select name
+        from users`;
 }
 
 
