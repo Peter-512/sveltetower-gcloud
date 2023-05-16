@@ -19,7 +19,7 @@ startup_script="startup.sh"
 #--------------------------------Functions-------------------------------------
 # Create a new VM with a startup script from startup.sh
 create_vm() {
-    gcloud compute instances create ${vm_name} \
+    gcloud compute instances create "${vm_name}" \
         --project=${proj_name} \
         --zone=${vm_zone} \
         --image-project=${vm_image_proj} \
@@ -33,7 +33,7 @@ create_vm() {
 # Check if VM exists, if not, create it
 check_vm() {
     if gcloud compute instances list --project=${proj_name} | \
-        grep -q ${vm_name}; then
+        grep -q "${vm_name}"; then
             echo "VM already exists"
     else
         echo "VM does not exist, creating..."

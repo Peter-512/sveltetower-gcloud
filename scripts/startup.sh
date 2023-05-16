@@ -22,13 +22,13 @@ install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
         apt-get install -y postgresql-client git curl nodejs && \
-        rm -rf /var/lib/apt/lists/* 
+        rm -rf /var/lib/apt/lists/*
 }
 
 pull_from_vcs() {
     cd /
     git clone ${git_repo}
-    cd /infra-app
+    cd /infra-app || exit 1
 
     populate_db
     create_env
@@ -40,15 +40,17 @@ pull_from_vcs() {
 }
 
 populate_db() {
-    psql -h ${db_server} -d ${db_name} -U ${db_user} -f /infra-app/sql/create.sql
-    psql -h ${db_server} -d ${db_name} -U ${db_user} -f /infra-app/sql/insert.sql
+    psql -h "${db_server}" -d ${db_name} -U ${db_user} -f /infra-app/sql/create.sql
+    psql -h "${db_server}" -d ${db_name} -U ${db_user} -f /infra-app/sql/insert.sql
 }
 
 create_env() {
-    echo "POSTGRES_PASSWORD=${db_password}" > /infra-app/.env
-    echo "DATABASE=${db_name}" >> /infra-app/.env
-    echo "POSTGRES_USER=${db_user}" >> /infra-app/.env
-    echo "SQL_INSTANCE_IP=${db_server}" >> /infra-app/.env
+    {
+      echo POSTGRES_PASSWORD=${db_password}
+      echo DATABASE=${db_name}
+      echo POSTGRES_USER=${db_user}
+      echo SQL_INSTANCE_IP="${db_server}"
+    } > /infra-app/.env
 }
 
 pull_favicon() {
