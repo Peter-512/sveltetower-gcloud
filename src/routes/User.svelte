@@ -1,26 +1,9 @@
 <script>
-	export let user;
-	const { name, email } = user;
+  export let user
+  const { name, email } = user
 </script>
 
-<div>
-	<p class="name">{name}</p>
-	<p class="email">{email}</p>
+<div class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative">
+  <p class="text-xl">{name}</p>
+  <p class="text-gray-400 relative right-0">{email}</p>
 </div>
-
-<style>
-	div {
-		background: aliceblue;
-		margin: 2rem;
-		padding: 1rem;
-		border-radius: 10px;
-		box-shadow: #d6ebfb 0 0 15px;
-		flex: 1;
-	}
-	.name {
-		color: black;
-	}
-	.email {
-		color: slategray;
-	}
-</style>

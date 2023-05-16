@@ -1,46 +1,24 @@
 <script>
-	import User from "./User.svelte";
-	export let data;
-	const loadingUser = {
-		name: "Loading...",
-		email: "Loading...",
-	};
+  import User from "./User.svelte"
+  import LoadingUser from "./LoadingUser.svelte"
+  export let data
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1 class="text-3xl m-8 text-center">Blazingly fast 🚀</h1>
 {#await data.promise.users}
-	<p class="loading">Loading users...</p>
-	<div class="container">
-		<User user={loadingUser}></User>
-		<User user={loadingUser}></User>
-		<User user={loadingUser}></User>
-		<User user={loadingUser}></User>
-	</div>
+  <div class="flex flex-wrap">
+    <LoadingUser />
+    <LoadingUser />
+    <LoadingUser />
+    <LoadingUser />
+  </div>
 {:then users}
-	<div class="container">
-		{#each users as user}
-			<User user={user}></User>
-		{/each}
-	</div>
+  <div class="flex flex-wrap">
+    {#each users as user}
+      <User {user} />
+    {/each}
+  </div>
 {:catch error}
-	<p class="error">{error.message}</p>
+  <div class="text-3xl">Oops, something went wrong...</div>
+  <p class="text-red-500 m-2 text-2xl">{error.message}</p>
 {/await}
-
-<style>
-	.container {
-		display: flex;
-		flex-wrap: wrap;
-	}
-
-	.error {
-		color: red;
-		margin: 2rem;
-		font-size: 2rem;
-	}
-
-	.loading {
-		margin: 2rem;
-		font-size: 2rem;
-	}
-</style>
