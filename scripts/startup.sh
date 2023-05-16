@@ -15,6 +15,7 @@ db_name="infra_app"
 db_user="postgres"
 db_password="postgres"
 git_repo=https://gitlab.com/peter.buschenreiter/infra-app.git
+domain=sveltetower.tech
 
 #--------------------------------Functions-------------------------------------
 # Install apache2, postgresql-client, git, curl non-interactively
@@ -34,9 +35,10 @@ pull_from_vcs() {
     create_env
     pull_favicon
 
-    npm install
+    npm ci --omit dev
     npm run build
-    npm run preview -- --host
+    PORT=80 npm build # PORT=443 for https
+#    npm run preview -- --host --https # possible to run with node `build/index.js`? how to make it run on port 80/443?
 }
 
 populate_db() {
@@ -57,7 +59,14 @@ pull_favicon() {
     gcloud storage cp --recursive gs://infra-bucket-230516/static /infra-app
 }
 
+enable_https() {
+  openssl req -newkey rsa:4096 -nodes -keyout privkey.pem -x509 -days 365 -sha256 -out certificate.pem -subj /CN=$domain
+#  mv privkey.pem /etc/ssl/private/
+#  mv certificate.pem /etc/ssl/certs/
+}
+
 #--------------------------------Main------------------------------------------
 install_dependencies
 pull_from_vcs
+enable_https
 #--------------------------------End-------------------------------------------

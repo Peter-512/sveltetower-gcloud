@@ -2,7 +2,7 @@ import sql from "$lib/db.js";
 
 async function getUsers() {
 	return sql`
-        select name
+        select name, email
         from users`;
 }
 
