@@ -29,8 +29,11 @@ pull_from_vcs() {
     cd /
     git clone ${git_repo}
     cd /infra-app
+
     populate_db
     create_env
+    pull_favicon
+
     npm install
     npm run build
     npm run preview -- --host
@@ -46,6 +49,10 @@ create_env() {
     echo "DATABASE=${db_name}" >> /infra-app/.env
     echo "POSTGRES_USER=${db_user}" >> /infra-app/.env
     echo "SQL_INSTANCE_IP=${db_server}" >> /infra-app/.env
+}
+
+pull_favicon() {
+    gcloud storage cp --recursive gs://infra-bucket-230516/static /infra-app
 }
 
 #--------------------------------Main------------------------------------------
