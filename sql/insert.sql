@@ -1,3 +1,5 @@
+GRANT ALL PRIVILEGES ON TABLE users TO postgres;
+
 INSERT INTO users ( name, email )
 VALUES ( 'John', 'john.doe@gmail.com' ),
        ( 'Jane', 'jane.doe@gmail.com' ),
