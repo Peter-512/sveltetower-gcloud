@@ -1,9 +1,32 @@
 <script>
-  export let user
-  const { name, email } = user
+	import { fly } from "svelte/transition"
+	/**@type {Record<string, string | number> | undefined}*/
+	export let user = undefined
 </script>
 
-<div class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative">
-  <p class="text-xl">{name}</p>
-  <p class="text-gray-400 relative right-0">{email}</p>
-</div>
+{#if !user}
+	<div
+		role="status"
+		class="m-8 max-w-md p-6 space-y-4 bg-blue-50 rounded-lg flex-1 drop-shadow-lg animate-pulse"
+	>
+		<div class="flex justify-between items-center">
+			<div>
+				<div
+					class="h-3 bg-gray-200 rounded-full dark:bg-gray-400 w-24 mb-4"
+				/>
+				<div
+					class="w-32 h-2 bg-gray-100 rounded-full dark:bg-gray-300"
+				/>
+			</div>
+		</div>
+		<span class="sr-only">Loading...</span>
+	</div>
+{:else}
+	<div
+		transition:fly={{ y: 50, duration: 750, delay: +user.id * 150 }}
+		class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative"
+	>
+		<p class="text-xl">{user.name}</p>
+		<p class="text-gray-400">{user.email}</p>
+	</div>
+{/if}
