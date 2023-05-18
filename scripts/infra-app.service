@@ -1,0 +1,12 @@
+[Unit]
+Description=Starts the infra-app
+
+[Service]
+User=root
+WorkingDirectory=/infra-app
+ExecStart=node build/index.js
+Restart=always
+Environment=PORT=80
+
+[Install]
+WantedBy=multi-user.target

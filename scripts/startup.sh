@@ -16,6 +16,7 @@ db_user="postgres"
 db_password="postgres"
 git_repo=https://gitlab.com/peter.buschenreiter/infra-app.git
 domain=sveltetower.tech
+service=$(cat scripts/infra-app.service)
 
 #--------------------------------Functions-------------------------------------
 # Install apache2, postgresql-client, git, curl non-interactively
@@ -37,8 +38,6 @@ pull_from_vcs() {
 
     npm ci --omit dev
     npm run build
-    PORT=80 npm build # PORT=443 for https
-#    npm run preview -- --host --https # possible to run with node `build/index.js`? how to make it run on port 80/443?
 }
 
 populate_db() {
@@ -65,8 +64,16 @@ enable_https() {
 #  mv certificate.pem /etc/ssl/certs/
 }
 
+start_service() {
+    echo "${service}" > /etc/systemd/system/infra-app.service
+    systemctl daemon-reload
+    systemctl enable infra-app
+    systemctl start infra-app
+}
+
 #--------------------------------Main------------------------------------------
 install_dependencies
 pull_from_vcs
-enable_https
+#enable_https
+start_service
 #--------------------------------End-------------------------------------------

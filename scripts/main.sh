@@ -15,6 +15,8 @@ vm_image_fam="ubuntu-2204-lts"
 vm_tags="http-server,https-server"
 network="internal"
 startup_script="startup.sh"
+machine_type="e2-small"
+
 
 #--------------------------------Functions-------------------------------------
 # Create a new VM with a startup script from startup.sh
@@ -23,6 +25,7 @@ create_vm() {
         --project=${proj_name} \
         --zone=${vm_zone} \
         --image-project=${vm_image_proj} \
+        --machine-type=${machine_type} \
         --image-family=${vm_image_fam} \
         --tags=${vm_tags} \
         --network=${network} \

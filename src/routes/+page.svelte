@@ -4,7 +4,8 @@
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 </script>
 
-<h1 class="text-3xl m-8 text-center">Blazingly fast 🚀</h1>
+<h1 class="text-9xl m-8 text-center">
+	<span class="bg-gradient-to-br font-bold from-red-600 to-yellow-500 bg-clip-text text-transparent box-decoration-clone">Blazingly fast</span> 🚀</h1>
 {#await data.promise.users}
 	<div class="flex flex-wrap">
 		{#each Array(randomNumberOfLoadingUsers) as _}
