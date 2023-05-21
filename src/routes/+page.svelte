@@ -1,6 +1,5 @@
 <script>
 	import User from "./User.svelte"
-	import ThemeSwitcher from "./ThemeSwitcher.svelte"
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 </script>
@@ -30,8 +29,6 @@
 		>Blazingly fast</span
 	> 🚀
 </h1>
-
-<ThemeSwitcher />
 
 {#await data.promise.users}
 	<div class="flex flex-wrap">
