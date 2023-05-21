@@ -34,7 +34,7 @@ pull_from_vcs() {
 
     populate_db
     create_env
-    pull_favicon
+    # pull_favicon
 
     npm ci --omit dev
     npm run build
