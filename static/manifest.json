@@ -1,0 +1,33 @@
+{
+	"name": "SvelteTower",
+	"background_color": "#1E293B",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#E4741F",
+	"icons": [
+		{
+			"src": "https://storage.googleapis.com/infra-bucket-230516/static/logo.png",
+			"sizes": "1053x1056",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "https://storage.googleapis.com/infra-bucket-230516/static/favicon.png",
+			"sizes": "128x128",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "https://storage.googleapis.com/infra-bucket-230516/static/bird.webp",
+			"sizes": "400x300",
+			"type": "image/webp",
+			"purpose": "any"
+		},
+		{
+			"src": "https://storage.googleapis.com/infra-bucket-230516/static/icon.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}
