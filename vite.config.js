@@ -12,7 +12,7 @@ export default defineConfig({
 			"/etc/letsencrypt/live/sveltetower.tech/privkey.pem"
 		),
 		cert: fs.readFileSync(
-			"/etc/letsencrypt/live/sveltetower.tech/fullchain.pem"
+			"/etc/letsencrypt/live/sveltetower.tech/cert.pem"
 		),
 	},
 	plugins: [sveltekit(), mkcert()],
