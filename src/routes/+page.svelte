@@ -10,6 +10,10 @@
 		name="description"
 		content="This is a blazingly fast homepage, showcasing the strength of Svelte x Postgres"
 	/>
+	<meta
+		property="og:image"
+		content="https://storage.googleapis.com/infra-bucket-230516/static/logo.png"
+	/>
 	<script>
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC (flash of unstyled content)
 		if (
