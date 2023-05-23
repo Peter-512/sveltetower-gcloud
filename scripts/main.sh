@@ -8,13 +8,13 @@
 
 #--------------------------------Variables-------------------------------------
 proj_name="infra-assignment-386906"
-vm_name="infra-assignment-vm-${USER}"
+vm_name="infra-assignment-vm-$(date +"%Y%m%d%H%M%S")"
 vm_zone="europe-west1-b"
 vm_image_proj="ubuntu-os-cloud"
 vm_image_fam="ubuntu-2204-lts"
 vm_tags="http-server,https-server"
 network="internal"
-startup_script="startup.sh"
+startup_script="scripts/startup.sh"
 machine_type="e2-small"
 
 

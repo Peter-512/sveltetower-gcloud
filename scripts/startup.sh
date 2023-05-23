@@ -19,7 +19,7 @@ domain=sveltetower.tech
 service=$(cat scripts/infra-app.service)
 
 #--------------------------------Functions-------------------------------------
-# Install apache2, postgresql-client, git, curl non-interactively
+# Install postgresql-client, git, curl non-interactively
 install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
@@ -34,9 +34,8 @@ pull_from_vcs() {
 
     populate_db
     create_env
-    # pull_favicon
 
-    npm ci --omit dev
+    npm i
     npm run build
 }
 
@@ -54,21 +53,18 @@ create_env() {
     } > /infra-app/.env
 }
 
-pull_favicon() {
-    gcloud storage cp --recursive gs://infra-bucket-230516/static /infra-app
-}
 
 enable_https() {
   openssl req -newkey rsa:4096 -nodes -keyout privkey.pem -x509 -days 365 -sha256 -out certificate.pem -subj /CN=$domain
-#  mv privkey.pem /etc/ssl/private/
-#  mv certificate.pem /etc/ssl/certs/
+#  cp privkey.pem /etc/ssl/private/
+#  cp certificate.pem /etc/ssl/certs/
 }
 
 start_service() {
-    echo "${service}" > /etc/systemd/system/infra-app.service
+    cp /infra-app/scripts/infra-app.service /etc/systemd/system/infra-app.service
     systemctl daemon-reload
-    systemctl enable infra-app
     systemctl start infra-app
+    systemctl enable infra-app
 }
 
 #--------------------------------Main------------------------------------------
