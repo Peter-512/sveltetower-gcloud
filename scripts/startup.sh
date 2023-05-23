@@ -16,7 +16,6 @@ db_user="postgres"
 db_password="postgres"
 git_repo=https://gitlab.com/peter.buschenreiter/infra-app.git
 domain=sveltetower.tech
-service=$(cat scripts/infra-app.service)
 
 #--------------------------------Functions-------------------------------------
 # Install postgresql-client, git, curl non-interactively
