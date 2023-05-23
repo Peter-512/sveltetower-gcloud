@@ -23,7 +23,7 @@ service=$(cat scripts/infra-app.service)
 install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
-        apt-get install -y postgresql-client git curl nodejs && \
+        apt-get install -y postgresql-client git nodejs nginx && \
         rm -rf /var/lib/apt/lists/*
 }
 
@@ -50,6 +50,8 @@ create_env() {
       echo DATABASE=${db_name}
       echo POSTGRES_USER=${db_user}
       echo SQL_INSTANCE_IP="${db_server}"
+      echo PORT=8080
+      echo HOST=127.0.0.1
     } > /infra-app/.env
 }
 

@@ -6,7 +6,7 @@ User=root
 WorkingDirectory=/infra-app
 ExecStart=node build/index.js
 Restart=always
-Environment=PORT=80
+EnvironmentFile=/infra-app/.env
 
 [Install]
 WantedBy=multi-user.target
