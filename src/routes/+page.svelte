@@ -10,7 +10,7 @@
 	const addUser = async (email) => {
 		if (!email) return
 
-		const name = email.split("@")[0].replace('.', ' ')
+		const name = email.split("@")[0].split(".")[0]
 
 		const res = await fetch("/api/users", {
 			method: "POST",
@@ -97,12 +97,11 @@
 		{#each users as user, i}
 			<User {user} number={i} />
 		{/each}
+		{#each newUsers as user, i}
+			<User {user} number={i} />
+		{/each}
 	</div>
 {:catch error}
 	<div class="text-3xl">Oops, something went wrong...</div>
 	<p class="text-red-500 m-2 text-2xl">{error.message}</p>
 {/await}
-
-{#each newUsers as user, i}
-	<User {user} number={i} />
-{/each}

@@ -28,7 +28,7 @@
 		out:fade
 		class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative"
 	>
-		<p class="text-xl">{user.name}</p>
+		<p class="text-xl capitalize">{user.name}</p>
 		<p class="text-gray-600">{user.email}</p>
 	</div>
 {/if}
