@@ -1,7 +1,8 @@
 <script>
-	import { fly } from "svelte/transition"
+	import { fly, fade } from "svelte/transition"
 	/**@type {Record<string, string | number> | undefined}*/
 	export let user = undefined
+	export let number = 0
 </script>
 
 {#if !user}
@@ -23,7 +24,8 @@
 	</div>
 {:else}
 	<div
-		transition:fly={{ y: 50, duration: 750, delay: +user.id * 150 }}
+		in:fly={{ y: 50, duration: 750, delay: number * 150 }}
+		out:fade
 		class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative"
 	>
 		<p class="text-xl">{user.name}</p>
