@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL
 );
+
+GRANT USAGE, SELECT ON SEQUENCE users_id_seq TO postgres;
