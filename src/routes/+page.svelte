@@ -6,6 +6,7 @@
 	let emailInput = ""
 	let newUsers = []
 	let resMessage = ""
+	let status
 	const addUser = async (email) => {
 		if (!email) return
 
@@ -19,6 +20,7 @@
 			},
 			body: JSON.stringify({email, name})
 		});
+		status = res.status
 		if (!res.ok) {
 			const data = await res.json()
 			resMessage = data.message
@@ -72,9 +74,13 @@
 		</div>
 		<button on:click={() => addUser(emailInput)} type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 	</div>
-	{#if resMessage}
+	{#if status === 400}
 		<div class="mx-8 mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-300" role="alert">
-			<span class="font-medium">Aww snap!</span> Someone already added that email.
+			<em class="font-medium">Aww snap!</em> Someone already added that email.
+		</div>
+	{:else if status >= 500}
+		<div class="mx-8 mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-300" role="alert">
+			<em class="font-medium">Oh oh!</em> Something went wrong, please try again later.
 		</div>
 	{/if}
 </div>
