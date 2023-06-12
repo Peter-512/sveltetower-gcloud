@@ -49,7 +49,8 @@ create_env() {
       echo DATABASE=${db_name}
       echo POSTGRES_USER=${db_user}
       echo SQL_INSTANCE_IP="${db_server}"
-      echo PORT=443
+      echo PORT=8080
+      echo HOST=127.0.0.1
     } > /infra-app/.env
 }
 
