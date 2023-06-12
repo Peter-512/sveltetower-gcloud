@@ -22,7 +22,7 @@ domain=sveltetower.tech
 install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
-        apt-get install -y postgresql-client git nodejs && \
+        apt-get install -y postgresql-client git nodejs nginx && \
         rm -rf /var/lib/apt/lists/*
 }
 
@@ -55,21 +55,23 @@ create_env() {
 
 
 enable_https() {
-  openssl req -newkey rsa:4096 -nodes -keyout privkey.pem -x509 -days 365 -sha256 -out certificate.pem -subj /CN=$domain
-#  cp privkey.pem /etc/ssl/private/
-#  cp certificate.pem /etc/ssl/certs/
+  rm /etc/nginx/nginx.conf
+  cp /infra-app/scripts/nginx.conf /etc/nginx/nginx.conf
+  mkdir -p /etc/letsencrypt/live/sveltetower.tech
+  cp -R /infra-app/scripts/sveltetower.tech /etc/letsencrypt/live/sveltetower.tech
 }
 
 start_service() {
-    cp /infra-app/scripts/infra-app.service /etc/systemd/system/infra-app.service
-    systemctl daemon-reload
-    systemctl start infra-app
-    systemctl enable infra-app
+  systemctl restart nginx
+  cp /infra-app/scripts/infra-app.service /etc/systemd/system/infra-app.service
+  systemctl daemon-reload
+  systemctl start infra-app
+  systemctl enable infra-app
 }
 
 #--------------------------------Main------------------------------------------
 install_dependencies
 pull_from_vcs
-#enable_https
+enable_https
 start_service
 #--------------------------------End-------------------------------------------
