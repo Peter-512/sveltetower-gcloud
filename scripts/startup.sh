@@ -22,7 +22,8 @@ install_dependencies() {
     apt-get update -y && \
         curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
         apt-get install -y postgresql-client git nodejs nginx && \
-        rm -rf /var/lib/apt/lists/*
+        rm -rf /var/lib/apt/lists/* &&
+        service nginx start
 }
 
 pull_from_vcs() {
@@ -56,8 +57,8 @@ create_env() {
 enable_https() {
   rm /etc/nginx/nginx.conf
   cp /infra-app/scripts/nginx.conf /etc/nginx/nginx.conf
-  mkdir -p /etc/letsencrypt/live/sveltetower.tech
-  cp -R /infra-app/scripts/sveltetower.tech /etc/letsencrypt/live/sveltetower.tech
+  mkdir -p /etc/letsencrypt/live/
+  cp -R /infra-app/scripts/sveltetower.tech /etc/letsencrypt/live/
 }
 
 start_service() {
